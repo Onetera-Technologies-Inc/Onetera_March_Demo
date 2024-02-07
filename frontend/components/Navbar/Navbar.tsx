@@ -1,4 +1,3 @@
-import React from 'react';
 import { Layout, Space } from 'antd';
 import Link from 'next/link';
 import SignUp from './SignUp/SignUp';
