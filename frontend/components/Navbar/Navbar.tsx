@@ -1,9 +1,6 @@
-// components/Navbar.tsx
-
 import React from 'react';
-import { Layout, Menu, Space } from 'antd';
+import { Layout, Space } from 'antd';
 import Link from 'next/link';
-import { LoginOutlined, UserAddOutlined } from '@ant-design/icons';
 import SignUp from './SignUp/SignUp';
 import Login from './Login/Login';
 

@@ -1,9 +1,15 @@
 import { Form, Input, Button, Checkbox } from 'antd';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const LoginPage = () => {
+  const router = useRouter(); 
+
   const onFinish = (values: any) => {
-    console.log('Success:', values);
+    router.push({
+      pathname: '/welcome',
+      query: { username: values.username } 
+    });
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -40,7 +46,7 @@ const LoginPage = () => {
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit"> 
             Login
           </Button>
         </Form.Item>
