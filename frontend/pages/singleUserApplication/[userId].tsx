@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
-import { Table, Tag } from "antd";
-import type { TableColumnsType } from "antd";
-import AllUserTableActions from "./AllUserTableActions";
+import { Table, TableColumnsType, Tag } from "antd";
+import { ColumnsType } from "antd/es/table";
 import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 
 interface ServiceType {
   serviceName: string;
@@ -57,14 +56,13 @@ const columns: TableColumnsType<DataType> = [
       <Tag color="blue">{service.serviceName}</Tag>
     ),
   },
-  {
-    title: "Action",
-    key: "operation",
-    fixed: "right",
-    width: 100,
-    render: () => <AllUserTableActions />,
-  },
 ];
+
+interface TableRowType extends ServiceType {
+  firstname: string;
+  lastname: string;
+  address: string;
+}
 
 const tableData: DataType[] = [
   {
@@ -87,56 +85,62 @@ const tableData: DataType[] = [
   },
 ];
 
-const AllUserTable: React.FC = () => {
-  const [data, setData] = useState<DataType[]>([]);
+const tableColumns: ColumnsType<TableRowType> = [
+  {
+    title: "Service Name",
+    dataIndex: "serviceName",
+    key: "serviceName",
+  },
+  {
+    title: "Service Key",
+    dataIndex: "key",
+    key: "key",
+  },
+  {
+    title: "First Name",
+    dataIndex: "firstname",
+    key: "firstname",
+  },
+  {
+    title: "Last Name",
+    dataIndex: "lastname",
+    key: "lastname",
+  },
+  {
+    title: "Address",
+    dataIndex: "address",
+    key: "address",
+  },
+];
+
+const SingleUserTable = () => {
   const router = useRouter();
-  const [selectedTag, setSelectedTag] = useState("All Applications");
+  const { userId } = router.query;
+  const [tableRows, setTableRows] = useState<TableRowType[]>([]);
 
   useEffect(() => {
-    if (selectedTag === "All Applications") {
-      setData(tableData);
-    } else {
-      const filteredData = tableData.filter(
-        (item) => item.service.serviceName === selectedTag
-      );
-      setData(filteredData);
+    if (typeof userId === "string") {
+      const userEntries = tableData.filter((user) => user.userId === userId);
+      if (userEntries.length > 0) {
+        const rows: TableRowType[] = userEntries.map((entry) => ({
+          ...entry.service,
+          firstname: entry.firstname,
+          lastname: entry.lastname,
+          address: entry.address,
+        }));
+        setTableRows(rows);
+      }
     }
-  }, [selectedTag]);
+  }, [userId]);
 
-  const tags = [
-    { name: "All Applications", color: "blue" },
-    { name: "Affordable Housing", color: "green" },
-    { name: "Permits", color: "volcano" },
-    { name: "Archived Applications", color: "gold" },
-  ];
-
-  function handleClick(name: any): void {
-    setSelectedTag(name);
-  }
+  if (tableRows.length === 0) return <p>No services found for this user.</p>;
 
   return (
-    <>
-      <div style={{ padding: "20px" }}>
-        {tags.map((tag: any) => (
-          <Tag
-            key={tag.name}
-            color={selectedTag === tag.name ? "magenta" : tag.color}
-            onClick={() => handleClick(tag.name)}
-            style={{ cursor: "pointer", margin: "5px" }}
-          >
-            {tag.name}
-          </Tag>
-        ))}
-      </div>
-      <Table
-        columns={columns}
-        dataSource={data}
-        onRow={(record) => ({
-          onClick: () => router.push(`/singleUserApplication/${record.userId}`),
-        })}
-      />
-    </>
+    <div>
+      <h1>User Services</h1>
+      <Table dataSource={tableRows} columns={tableColumns} />
+    </div>
   );
 };
 
-export default AllUserTable;
+export default SingleUserTable;
