@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Table, Tag } from "antd";
+import { Avatar, Table, Tag } from "antd";
 import type { TableColumnsType } from "antd";
 import AllUserTableActions from "./AllUserTableActions";
 import { useRouter } from "next/router";
@@ -17,33 +17,31 @@ interface DataType {
   lastname: string;
   service: ServiceType;
   address: string;
+  date: string;
 }
 
 const columns: TableColumnsType<DataType> = [
   {
     title: "Profile",
-    width: 50,
     dataIndex: "profile",
     key: "profile",
     fixed: "left",
+    render: profile => <Avatar src={profile} alt="Profile" />
   },
   {
     title: "First Name",
-    width: 100,
     dataIndex: "firstname",
     key: "name",
     fixed: "left",
   },
   {
     title: "Last Name",
-    width: 100,
     dataIndex: "lastname",
     key: "name",
     fixed: "left",
   },
   {
     title: "Address",
-    width: 100,
     dataIndex: "address",
     key: "age",
     fixed: "left",
@@ -58,10 +56,15 @@ const columns: TableColumnsType<DataType> = [
     ),
   },
   {
+    title: "Application Date",
+    dataIndex: "date",
+    key: "date",
+    fixed: "left",
+  },
+  {
     title: "Action",
     key: "operation",
     fixed: "right",
-    width: 100,
     render: () => <AllUserTableActions />,
   },
 ];
@@ -74,6 +77,7 @@ const tableData: DataType[] = [
     lastname: "Dominguez",
     address: "5201 Tonya Garden Apt. 898, Lake Joseph, CA 36068",
     service: { serviceName: "Permits", key: "service1" },
+    date: "12 January 2024",
     key: "user1-service1",
   },
   {
@@ -83,6 +87,7 @@ const tableData: DataType[] = [
     lastname: "Dominguez",
     address: "5201 Tonya Garden Apt. 898, Lake Joseph, CA 36068",
     service: { serviceName: "Affordable Housing", key: "service2" },
+    date: "22 January 2024",
     key: "user1-service2",
   },
 ];
@@ -91,6 +96,18 @@ const AllUserTable: React.FC = () => {
   const [data, setData] = useState<DataType[]>([]);
   const router = useRouter();
   const [selectedTag, setSelectedTag] = useState("All Applications");
+
+  // const updatedColumns: TableColumnsType<DataType> = columns.map(column => {
+  //   if (column.key === 'operation') {
+  //     return {
+  //       ...column,
+  //       render: (_, record) => (
+  //         <AllUserTableActions onClick={(e: React.MouseEvent) => e.stopPropagation()} />
+  //       ),
+  //     };
+  //   }
+  //   return column;
+  // });
 
   useEffect(() => {
     if (selectedTag === "All Applications") {
@@ -134,6 +151,7 @@ const AllUserTable: React.FC = () => {
         onRow={(record) => ({
           onClick: () => router.push(`/singleUserApplication/${record.userId}`),
         })}
+        rowKey="key"
       />
     </>
   );
