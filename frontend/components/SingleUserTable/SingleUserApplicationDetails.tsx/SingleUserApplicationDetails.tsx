@@ -12,7 +12,7 @@ const SingleUserApplicationDetails = () => {
       <Col xs={24} sm={12} md={8} lg={12} xl={14}>
         <Row>
           <Col xs={24} sm={14} md={14} lg={15} xl={16}>
-            Our records indicate Julie speaks <b>Spanish</b>. Do you want to send the
+            Our records indicate the applicant speaks <b>Spanish</b>. Do you want to send the
             message in <b>Spanish</b> instead?
           </Col>
           <Col xs={12} sm={5} md={5} lg={4} xl={4}>
