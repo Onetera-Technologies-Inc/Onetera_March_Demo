@@ -1,3 +1,4 @@
+import "../styles/globals.css"; // If you have other global styles
 
 import type { AppProps } from "next/app";
 

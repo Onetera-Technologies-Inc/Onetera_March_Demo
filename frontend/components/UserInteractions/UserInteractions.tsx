@@ -54,7 +54,7 @@ const UserInteractions = () => {
   }, [messages]);
 
   return (
-    <div style={{ height: "80vh", overflow: "auto", padding: "20px" }}>
+    <div style={{ height: "60vh", overflow: "auto", padding: "20px" }}>
       <List
         dataSource={messages}
         renderItem={(item) => (

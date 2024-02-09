@@ -1,6 +1,7 @@
 import React from "react";
 import { Layout } from "antd";
 import dynamic from "next/dynamic";
+import CustomizedServices from "@/components/UserInteractions/CustomizedServices/CustomizedServices";
 
 const { Header } = Layout;
 const Logout = dynamic(() => import("@/components/Navbar/Logout/Logout"), {
@@ -25,7 +26,12 @@ const ResidentLandingPage = () => {
       >
         <Logout />
       </Header>
-      <UserInteractions />
+      <section>
+        <UserInteractions />
+      </section>
+      <section>
+        <CustomizedServices />
+      </section>
     </>
   );
 };
