@@ -1,5 +1,5 @@
 import { MailOutlined, CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
-import { Col, Row, Space } from 'antd';
+import { Col, Row } from 'antd';
 
 const AllUserTableActions = () => {
   return (

@@ -1,4 +1,6 @@
-
+export interface WelcomeQueryParams {
+  username?: string;
+}
 export interface ServiceType {
     serviceName: string;
     key: string;

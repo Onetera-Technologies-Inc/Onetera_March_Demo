@@ -1,6 +1,4 @@
 import { Alert, Col, Row } from "antd";
-import SubmittedApplication from "./SubmittedApplication";
-import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
 
 const CustomizedMessagePrompts = () => {
   return (

@@ -1,8 +1,11 @@
 import React from 'react';
 import { Layout } from 'antd';
-import Logout from '@/components/Navbar/Logout/Logout';
+import dynamic from 'next/dynamic';
 
 const { Header } = Layout;
+const Logout = dynamic(() => import("@/components/Navbar/Logout/Logout"), {
+  ssr: false,
+});
 
 const ResidentLandingPage = () => {
   return (
@@ -10,7 +13,7 @@ const ResidentLandingPage = () => {
     <Header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Logout/>
     </Header>
-    resi
+    Hi Resident
     </>
   );
 };

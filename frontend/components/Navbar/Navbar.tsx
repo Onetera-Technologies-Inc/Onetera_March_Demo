@@ -1,9 +1,11 @@
 import { Layout, Space } from 'antd';
 import Link from 'next/link';
-import SignUp from './SignUp/SignUp';
-import Login from './Login/Login';
+import dynamic from 'next/dynamic';
 
 const { Header } = Layout;
+const Login = dynamic(() => import('../Navbar/Login/Login'), { ssr: false });
+const SignUp = dynamic(() => import('../Navbar/SignUp/SignUp'), { ssr: false });
+
 
 const Navbar = () => {
   return (

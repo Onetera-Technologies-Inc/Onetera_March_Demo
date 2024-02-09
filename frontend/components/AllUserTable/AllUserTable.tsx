@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { Avatar, Table, Tag } from "antd";
 import type { TableColumnsType } from "antd";
-import AllUserTableActions from "./AllUserTableActions";
 import { useRouter } from "next/router";
 import { DataType,ServiceType } from '../../constants/types';
 import { allUserData } from '../../constants/tableData'; 
+import dynamic from "next/dynamic";
+
+const AllUserTableActions = dynamic(() => import('./AllUserTableActions'), { ssr: false });
 
 const columns: TableColumnsType<DataType> = [
   {

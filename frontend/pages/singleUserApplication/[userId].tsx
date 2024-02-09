@@ -1,10 +1,11 @@
-import SingleUserTable from "@/components/SingleUserTable/SingleUserTable";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
 const SingleUserApplication = () => {
   const router = useRouter();
   const { userId } = router.query;
+  const SingleUserTable = dynamic(() => import('@/components/SingleUserTable/SingleUserTable'), { ssr: false });
 
   useEffect(()=>{
     console.log(userId)
