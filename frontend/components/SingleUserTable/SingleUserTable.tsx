@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Descriptions, Table } from 'antd';
+import { Avatar, Col, Descriptions, Row, Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import router from 'next/router';
 import { DataType,ServiceType } from '../../constants/types';
@@ -37,11 +37,18 @@ const UserDetailTables: React.FC<{ userId: string }> = ({ userId }) => {
   return (
     <>
       {personalDetails && (
-        <Descriptions title="Personal Details" bordered column={1}>
-          <Descriptions.Item label="First Name">{personalDetails.firstname}</Descriptions.Item>
-          <Descriptions.Item label="Last Name">{personalDetails.lastname}</Descriptions.Item>
-          <Descriptions.Item label="Address">{personalDetails.address}</Descriptions.Item>
-        </Descriptions>
+        <Row gutter={[16, 24]}>
+        <Col xs={24} sm={8} md={6} lg={4} xl={4}>
+          <Avatar src={personalDetails.profile} alt="Profile" style={{ width: '100%', height: 'auto', maxWidth: '160px', display: 'block', marginLeft: 'auto', marginRight: 'auto' }} />
+        </Col>
+        <Col xs={24} sm={16} md={18} lg={20} xl={20}>
+          <Descriptions title="Personal Details" bordered column={{ xs: 1, sm: 1, md: 1, lg: 1, xl: 1 }}>
+            <Descriptions.Item label="First Name">{personalDetails.firstname}</Descriptions.Item>
+            <Descriptions.Item label="Last Name">{personalDetails.lastname}</Descriptions.Item>
+            <Descriptions.Item label="Address">{personalDetails.address}</Descriptions.Item>
+          </Descriptions>
+        </Col>
+      </Row>
       )}
       <Table
         dataSource={serviceRows}
