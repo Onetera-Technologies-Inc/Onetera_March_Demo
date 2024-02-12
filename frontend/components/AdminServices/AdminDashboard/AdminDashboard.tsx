@@ -1,50 +1,72 @@
-import Head from "next/head";
-import dynamic from "next/dynamic";
-import { Button, Card, Space, Table, TabsProps, Typography } from "antd";
-import {
-  affordableHousingColumnsData,
-  permitsColumnsData,
-  transportationColumnsData,
-} from "@/constants/tableData";
+import React, { useEffect, useState } from "react";
+import { Button, Card, Table, Typography, notification } from "antd";
 import {
   affordableHousingColumns,
   permitsColumns,
   transportationColumns,
 } from "@/constants/tableColumns";
-import { useState } from "react";
+import {
+  affordableHousingColumnsData,
+  permitsColumnsData,
+  transportationColumnsData,
+} from "@/constants/tableData";
+import dynamic from "next/dynamic";
 
-const ContentCards = dynamic(
-  () => import("@/components/ContentCards/ContentCards"),
-  {
-    ssr: false,
-  }
-);
+type SelectedRowsType = Record<string, React.Key[]>;
+const ContentCards = dynamic(() => import("../../ContentCards/ContentCards"), {
+  ssr: false,
+});
 
 const AdminDashboard = () => {
-  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+  const [selectedRows, setSelectedRows] = useState<SelectedRowsType>({});
+  const [activeTabKey, setActiveTabKey] = useState("1");
   const [loading, setLoading] = useState(false);
+  const [triggerNotification, setTriggerNotification] = useState(false);
+
+  const openNotification = () => {
+    notification.open({
+      message: "Notification Complete",
+      description: `Resident(s) notified`,
+    });
+  };
+
+  useEffect(() => {
+    if (triggerNotification) {
+      openNotification();
+      setTriggerNotification(false);
+    }
+  }, [triggerNotification]);
 
   const start = () => {
     setLoading(true);
-    // ajax request after empty completing
     setTimeout(() => {
-      setSelectedRowKeys([]);
+      setSelectedRows({});
       setLoading(false);
+      setTriggerNotification(true);
     }, 1000);
   };
 
-  const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
-    console.log("selectedRowKeys changed: ", newSelectedRowKeys);
-    setSelectedRowKeys(newSelectedRowKeys);
+  const onSelectChange = (
+    selectedRowKeys: any,
+    selectedRows: any,
+    tabKey: any
+  ) => {
+    setSelectedRows((prevSelectedRows) => ({
+      ...prevSelectedRows,
+      [tabKey]: selectedRowKeys,
+    }));
   };
 
-  const rowSelection = {
-    selectedRowKeys,
-    onChange: onSelectChange,
-  };
-  const hasSelected = selectedRowKeys.length > 0;
+  const hasSelected = selectedRows[activeTabKey]?.length > 0;
 
-  const items: TabsProps["items"] = [
+  const rowSelection = (tabKey: string) => ({
+    selectedRowKeys: selectedRows[tabKey] || [],
+    onChange: (selectedRowKeys: any, selectedRows: any) => {
+      onSelectChange(selectedRowKeys, selectedRows, tabKey);
+    },
+  });
+
+  const tabsItems = [
     {
       key: "1",
       label: (
@@ -54,9 +76,9 @@ const AdminDashboard = () => {
       ),
       children: (
         <Table
-          rowSelection={rowSelection}
           dataSource={affordableHousingColumnsData}
           columns={affordableHousingColumns}
+          rowSelection={rowSelection("1")}
         />
       ),
     },
@@ -69,9 +91,9 @@ const AdminDashboard = () => {
       ),
       children: (
         <Table
-          rowSelection={rowSelection}
           dataSource={permitsColumnsData}
           columns={permitsColumns}
+          rowSelection={rowSelection("2")}
         />
       ),
     },
@@ -84,9 +106,9 @@ const AdminDashboard = () => {
       ),
       children: (
         <Table
-          rowSelection={rowSelection}
           dataSource={transportationColumnsData}
           columns={transportationColumns}
+          rowSelection={rowSelection("3")}
         />
       ),
     },
@@ -94,23 +116,28 @@ const AdminDashboard = () => {
 
   return (
     <div>
-      <h1>Welcome Admin!</h1>
-      <Typography.Title level={5} style={{ margin: 0 }}>
-        Most popular services @ Glendale
+      <Typography.Title level={5}>
+        Most Popular Services @ Glendale
       </Typography.Title>
       <Button
         type="primary"
         onClick={start}
         disabled={!hasSelected}
         loading={loading}
-        style={{ marginTop: "20px" }}
+        style={{ marginBottom: 16 }}
       >
         Notify Residents
       </Button>
       <span style={{ marginLeft: 8 }}>
-        {hasSelected ? `Selected ${selectedRowKeys.length} items` : ""}
+        {hasSelected
+          ? `${selectedRows[activeTabKey]?.length} Resident(s) selected`
+          : ""}
       </span>
-      <ContentCards items={items} />
+      <ContentCards
+        items={tabsItems}
+        activeTabKey={activeTabKey}
+        setActiveTabKey={setActiveTabKey}
+      />
     </div>
   );
 };
