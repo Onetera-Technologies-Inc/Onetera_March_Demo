@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
-import { Avatar, Table, Tag } from "antd";
+import { Avatar, Table, Tag, Typography } from "antd";
 import type { TableColumnsType } from "antd";
 import { useRouter } from "next/router";
-import { DataType,ServiceType } from '../../constants/types';
-import { allUserData } from '../../constants/tableData'; 
+import { DataType, ServiceType } from "../../constants/types";
+import { allUserData } from "../../constants/tableData";
 import dynamic from "next/dynamic";
 
-const AllUserTableActions = dynamic(() => import('./AllUserTableActions'), { ssr: false });
+const AllUserTableActions = dynamic(() => import("./AllUserTableActions"), {
+  ssr: false,
+});
 
 const columns: TableColumnsType<DataType> = [
   {
@@ -14,7 +16,7 @@ const columns: TableColumnsType<DataType> = [
     dataIndex: "profile",
     key: "profile",
     fixed: "left",
-    render: profile => <Avatar src={profile} alt="Profile" />
+    render: (profile) => <Avatar src={profile} alt="Profile" />,
   },
   {
     title: "First Name",
@@ -57,8 +59,6 @@ const columns: TableColumnsType<DataType> = [
   },
 ];
 
-
-
 const AllUserTable: React.FC = () => {
   const [data, setData] = useState<DataType[]>([]);
   const router = useRouter();
@@ -88,6 +88,9 @@ const AllUserTable: React.FC = () => {
 
   return (
     <>
+      <Typography.Title level={3} style={{ margin: 0 }}>
+        List of All Users
+      </Typography.Title>
       <div style={{ padding: "20px" }}>
         {tags.map((tag: any) => (
           <Tag
@@ -100,6 +103,7 @@ const AllUserTable: React.FC = () => {
           </Tag>
         ))}
       </div>
+
       <Table
         columns={columns}
         dataSource={data}

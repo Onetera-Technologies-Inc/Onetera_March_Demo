@@ -3,7 +3,7 @@ import { Menu, MenuProps } from "antd";
 
 interface SideNavProps {
   setCurrentKey: React.Dispatch<React.SetStateAction<string>>;
-  items: MenuProps["items"]; // Assuming items is of type MenuProps['items']
+  items: MenuProps["items"];
 }
 
 const SideNav: React.FC<SideNavProps> = ({ setCurrentKey, items }) => {
@@ -16,18 +16,6 @@ const SideNav: React.FC<SideNavProps> = ({ setCurrentKey, items }) => {
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);
   };
-
-  // return (
-  //   <div>
-  //     <Menu
-  //       defaultSelectedKeys={["1"]}
-  //       defaultOpenKeys={["sub1"]}
-  //       mode="inline"
-  //       theme="dark"
-  //       items={items}
-  //     />
-  //   </div>
-  // );
   return (
     <Menu
       onClick={handleClick}

@@ -85,19 +85,12 @@ const AdminServicesPage = () => {
       >
         <Logout />
       </Header>
-      <Row gutter={50}>
+      <Row gutter={20}>
         <Col span={4}>
           <SideNav setCurrentKey={setCurrentKey} items={items} />
         </Col>
         <Col span={20}>{components[currentKey] || <AdminDashboard />}</Col>
       </Row>
-
-      {/* <Typography.Title level={3} style={{ margin: 0 }}>
-        List of All Users
-      </Typography.Title>
-      <section style={{ marginTop: "20px" }}>
-        <AllUserTable />
-      </section> */}
     </>
   );
 };
