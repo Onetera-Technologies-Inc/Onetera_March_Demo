@@ -62,3 +62,79 @@ export const allUserData: DataType[] = [
       key: "user5-service6",
     },
   ];
+
+
+  export const affordableHousingColumnsData = [
+    {
+      key: '1',
+      projectName: '15th Avenue Cooperative',
+      address: '444 W 15th Ave',
+      contact: '760-745-1500',
+      emailOrWebsite: '15avecooperative@chworks.net',
+      numberOfUnits: '16',
+      numberOfBedrooms: '1, 2, 3, 4',
+      ami: 'N/A',
+    },
+  ];
+
+export const permitsColumnsData = [
+  {
+    key: '1',
+    permitType: 'Accessory Dwelling Unit (ADU)',
+    turnaroundTime: '193'
+  }
+]
+
+
+export const transportationColumnsData = [
+  {
+    key: '1',
+    name: 'Glendale Line A',
+    route: 'Central to Brand',
+    stops: 10,
+    startStop: 'Central Ave',
+    endStop: 'Brand Blvd',
+    timelines: '6am - 10pm',
+    deposit: '$2.00',
+  },
+  {
+    key: '2',
+    name: 'Glendale Line B',
+    route: 'Pacific to Colorado',
+    stops: 8,
+    startStop: 'Pacific Ave',
+    endStop: 'Colorado St',
+    timelines: '5am - 11pm',
+    deposit: '$2.50',
+  },
+  {
+    key: '3',
+    name: 'Glendale Shuttle',
+    route: 'Downtown Loop',
+    stops: 5,
+    startStop: 'Glendale Station',
+    endStop: 'Americana at Brand',
+    timelines: '7am - 7pm',
+    deposit: 'Free',
+  },
+  {
+    key: '4',
+    name: 'Glendale Express',
+    route: 'North to South',
+    stops: 12,
+    startStop: 'Montrose',
+    endStop: 'South Glendale',
+    timelines: '6am - 8pm',
+    deposit: '$3.00',
+  },
+  {
+    key: '5',
+    name: 'Glendale Line C',
+    route: 'East to West',
+    stops: 15,
+    startStop: 'East Glendale',
+    endStop: 'West Glendale',
+    timelines: '5:30am - 9:30pm',
+    deposit: '$2.00',
+  },
+];

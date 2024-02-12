@@ -1,8 +1,23 @@
 import Head from "next/head";
 import dynamic from "next/dynamic";
-import ContentCards from "@/components/ContentCards/ContentCards";
-import { Card, TabsProps, Typography } from "antd";
-import { render } from "react-dom";
+import { Card, Table, TabsProps, Typography } from "antd";
+import {
+  affordableHousingColumnsData,
+  permitsColumnsData,
+  transportationColumnsData,
+} from "@/constants/tableData";
+import {
+  affordableHousingColumns,
+  permitsColumns,
+  transportationColumns,
+} from "@/constants/tableColumns";
+
+const ContentCards = dynamic(
+  () => import("@/components/ContentCards/ContentCards"),
+  {
+    ssr: false,
+  }
+);
 
 const AdminDashboard = () => {
   const items: TabsProps["items"] = [
@@ -13,7 +28,12 @@ const AdminDashboard = () => {
           Affordable Housing
         </Card>
       ),
-      children: "Content of Tab Pane 1",
+      children: (
+        <Table
+          dataSource={affordableHousingColumnsData}
+          columns={affordableHousingColumns}
+        />
+      ),
     },
     {
       key: "2",
@@ -22,7 +42,9 @@ const AdminDashboard = () => {
           Permits
         </Card>
       ),
-      children: "Content of Tab Pane 2",
+      children: (
+        <Table dataSource={permitsColumnsData} columns={permitsColumns} />
+      ),
     },
     {
       key: "3",
@@ -31,7 +53,12 @@ const AdminDashboard = () => {
           Transportation
         </Card>
       ),
-      children: "Content of Tab Pane 3",
+      children: (
+        <Table
+          dataSource={transportationColumnsData}
+          columns={transportationColumns}
+        />
+      ),
     },
   ];
 
