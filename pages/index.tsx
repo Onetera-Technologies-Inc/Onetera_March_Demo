@@ -1,5 +1,9 @@
+import dynamic from "next/dynamic";
 import Head from "next/head";
-import Navbar from "../components/Navbar/Navbar";
+
+const Navbar = dynamic(() => import("../components/Navbar/Navbar"), {
+  ssr: false,
+});
 
 const Home = () => {
   return (
