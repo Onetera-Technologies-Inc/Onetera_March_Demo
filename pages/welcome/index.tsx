@@ -1,7 +1,7 @@
-import { useRouter } from 'next/router';
-import { NextPage } from 'next';
-import ResidentLandingPage from '@/container/ResidentLandingPage/ResidentLandingPage';
-import AdminLandingPage from '@/container/AdminLandingPage/AdminLandingPage';
+import { useRouter } from "next/router";
+import { NextPage } from "next";
+import ResidentLandingPage from "@/container/ResidentLandingPage/ResidentLandingPage";
+import AdminLandingPage from "@/container/AdminLandingPage/AdminLandingPage";
 
 interface WelcomeQueryParams {
   username?: string;
@@ -13,7 +13,8 @@ const WelcomePage: NextPage = () => {
 
   return (
     <div>
-      { username === 'admin' ? <><AdminLandingPage/></> : <><ResidentLandingPage/></>}
+      hey
+      {/* { username === 'admin' ? <><AdminLandingPage/></> : <><ResidentLandingPage/></>} */}
     </div>
   );
 };
